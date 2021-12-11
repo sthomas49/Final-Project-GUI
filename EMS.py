@@ -124,7 +124,8 @@ class Employee():
 
         scroll_x.config(command=self.employee_table.xview)
         scroll_y.config(command=self.employee_table.yview)
-
+        
+        # ===========heading for treeview=============
         self.employee_table.heading("ID", text="ID NO.")
         self.employee_table.heading("Name", text="Name")
         self.employee_table.heading("Email", text="Email")
@@ -145,7 +146,8 @@ class Employee():
         self.employee_table.pack(fill=BOTH, expand=1)
         self.employee_table.bind("<ButtonRelease-1>",self.get_cursor)
         self.fetch_data()
-
+        
+    #============Adding employees to database==========
     def add_employees(self):
         print('add employee')
         print('name test =',self.Name_var.get())
@@ -175,7 +177,8 @@ class Employee():
             self.fetch_data()
             con.close()
             messagebox.showinfo("Successfully Recorded")
-
+            
+    #====Places data into treeview=========
     def fetch_data(self):
         print('Fetch Data')
         con = sqlite3.connect('EM.db')
@@ -203,7 +206,7 @@ class Employee():
         self.txt_Address.delete("1.0",END)
         self.txt_Address.insert(END,row[6])
         
-            
+     #=======CLEAR entries in tables========       
     def clear(self):
         self.ID_NO_var.set("")
         self.Name_var.set("")
@@ -213,6 +216,7 @@ class Employee():
         self.DOB_var.set("")
         self.txt_Address.delete("1.0",END)
         
+     #======UPDATING exisiting employees in database==========   
     def update_data(self):
         con = sqlite3.connect('EM.db')
         cursor = con.cursor()
@@ -238,6 +242,7 @@ class Employee():
         con.close()
         messagebox.showinfo("Successfully Updated")
         
+     #====DELETE employees from database========   
     def delete_data(self):
         con = sqlite3.connect('EM.db')
         cursor = con.cursor()
@@ -246,7 +251,7 @@ class Employee():
         con.close()
         self.fetch_data()
         self.clear()
-        
+     #=======SEARCH from employees within the database===========   
     def search_data(self):
         con = sqlite3.connect('EM.db')
         cursor = con.cursor()
